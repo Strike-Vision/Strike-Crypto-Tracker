@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <meta http-equiv="refresh" content="{{ refresh_seconds }}">
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="/" style="margin-bottom: 1em;" id="tracker-form">
+      <label for="symbol">Crypto Symbol:</label>
+      <input type="text" id="symbol" name="symbol" required value="{{ symbol or '' }}">
+      <label for="currency">Currency:</label>
+      <input type="text" id="currency" name="currency" required value="{{ currency or 'USD' }}">
+      <label for="past24">Past 24Hrs:</label>
+      <input type="checkbox" id="past24" name="past24" onchange="toggleDates()" {% if past24 %}checked{% endif %}>
+      <span id="date-fields">
+        <label for="start">Start Date:</label>
+        <input type="date" id="start" name="start" value="{{ start or '' }}">
+        <label for="end">End Date:</label>
+        <input type="date" id="end" name="end" value="{{ end or '' }}">
+      </span>
+      <label for="interval">Interval:</label>
+      <select id="interval" name="interval">
+        <option value="5m">5m</option>
+        <option value="15m">15m</option>
+        <option value="30m">30m</option>
+        <option value="1h" {% if interval == "1h" %}selected{% endif %}>1h</option>
+        <option value="1d" {% if interval == "1d" %}selected{% endif %}>1d</option>
+      </select>
+      <button type="submit">Track</button>
+    </form>
+    <script>
+      function toggleDates() {
+        const past24 = document.getElementById('past24').checked;
+        document.getElementById('date-fields').style.display = past24 ? 'none' : 'inline';
+      }
+      window.onload = toggleDates;
+    </script>
+
+    {% if chart_data %}
+      <div id="candlestick"></div>
+      <script src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>
+      <script>
+        const data = JSON.parse('{{ chart_data|safe }}');
+        const trace = {
+          x: data.dates,
+          open: data.open,
+          high: data.high,
+          low: data.low,
+          close: data.close,
+          type: 'candlestick',
+          yaxis: 'y'
+        };
+        const volumeTrace = {
+          x: data.dates,
+          y: data.volume,
+          type: 'bar',
+          marker: {color: 'rgba(100,100,200,0.3)'},
+          yaxis: 'y2',
+          name: 'Volume'
+        };
+        const layout = {
+          title: '{{ symbol }}-{{ currency }} Candlestick Chart',
+          autosize: true,
+          margin: { t: 40, l: 40, r: 40, b: 40 },
+          yaxis: {
+            title: 'Price',
+            side: 'left',
+            separatethousands: false
+          },
+          yaxis2: {
+            title: 'Volume',
+            overlaying: 'y',
+            side: 'right',
+            separatethousands: true,
+            showgrid: false
+          },
+          barmode: 'relative',
+          xaxis: { type: 'category' }
+        };
+        Plotly.newPlot('candlestick', [trace, volumeTrace], layout, {responsive: true});
+      </script>
+    {% endif %}
+{% endblock %}
