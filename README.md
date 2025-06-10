@@ -1,4 +1,4 @@
-# Flask Crypto Tracker
+# Strike Crypto Tracker
 
 A simple Flask web application to track cryptocurrency prices and visualize candlestick charts using yfinance and Plotly.
 
