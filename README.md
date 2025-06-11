@@ -49,7 +49,7 @@ flask-crypto-tracker/
    http://127.0.0.1:5000/
    ```
 
-3. Use the form to enter a crypto symbol (e.g., BTC-USD), currency, date range, and interval. Submit to view the interactive candlestick and volume charts.
+3. Use the form to enter a crypto symbol (e.g. BTC) currency (e.g. AUD), date range, and interval. Submit to view the interactive candlestick and volume charts.
 
 ## Configuration
 - The main application logic is in `app.py`.
