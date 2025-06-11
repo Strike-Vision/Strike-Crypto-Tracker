@@ -17,18 +17,14 @@ flask-crypto-tracker/
 │   └── index.html        # Main page with form and chart display
 ├── static/               # Static files (e.g., CSS for styling)
 │   └── style.css
-├── tests/                # Test files for the application
-│   └── test_app.py
-├── requirements.txt       # Required Python packages
-├── requirements-dev.txt   # Additional packages for development and testing
-└── LICENSE               # MIT License file
+└──requirements.txt       # Required Python packages
 ```
 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Strike-Vision/strike-crypto.git
-   cd strike-crypto
+   git clone https://github.com/Strike-Vision/Strike-Crypto-Tracker.git
+   cd Strike-Crypto-Tracker
    ```
 
 2. Create a virtual environment (optional but recommended):
@@ -42,17 +38,8 @@ flask-crypto-tracker/
    pip install -r requirements.txt
    ```
 
-4. For development and testing, install additional dependencies:
-   ```bash
-   pip install -r requirements-dev.txt
-   ```
-
 ## Usage
 1. Run the Flask app:
-   ```bash
-   python app.py
-   ```
-   or
    ```bash
    flask run
    ```
@@ -64,20 +51,10 @@ flask-crypto-tracker/
 
 3. Use the form to enter a crypto symbol (e.g., BTC-USD), currency, date range, and interval. Submit to view the interactive candlestick and volume charts.
 
-## Testing
-Run the tests using pytest:
-```bash
-pytest
-```
-
 ## Configuration
 - The main application logic is in `app.py`.
 - Templates are stored in the `templates` directory (e.g., `index.html` for the main page).
 - Static files, such as CSS, are in the `static` directory.
-- Tests are located in the `tests` directory.
-
-## License
-MIT License. See [LICENSE](LICENSE) for details.
 
 ## Built With
 - [Flask](https://flask.palletsprojects.com/) - Web framework
